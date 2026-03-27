@@ -10,11 +10,7 @@ def capitalize_words(s):
 
 
 def count_vowels(s):
-    count = 0
-    for char in s:
-        if char in "aeiouAEIOU":
-            count += 1
-    return count
+    return sum(1 for c in s if c in "aeiouAEIOU")
 
 
 def truncate(s, length):
