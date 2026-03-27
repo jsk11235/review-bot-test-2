@@ -16,3 +16,4 @@ def test_count_vowels():
 def test_truncate():
     assert truncate("hello world", 5) == "hello..."
     assert truncate("hi", 5) == "hi"
+    assert truncate("", 5) == ""
