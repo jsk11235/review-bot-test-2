@@ -3,6 +3,7 @@ from utils import reverse, capitalize_words, count_vowels, truncate
 
 def test_reverse():
     assert reverse("hello") == "olleh"
+    assert reverse("a") == "a"
 
 
 def test_capitalize_words():
