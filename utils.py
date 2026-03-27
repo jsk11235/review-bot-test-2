@@ -22,3 +22,13 @@ def count_vowels(s):
         if char in "aeiouAEIOU":
             count = count + 1
     return count
+
+
+def truncate(s, length):
+    """Truncate string to given length."""
+    if len(s) <= length:
+        return s
+    result = ""
+    for i in range(length):
+        result = result + s[i]
+    return result + "..."
