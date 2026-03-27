@@ -39,16 +39,19 @@ def main():
                         old = inp.get("old_string", "")
                         new = inp.get("new_string", "")
                         print(f"\n✏️  Edit {path}", flush=True)
-                        for l in old.splitlines():
-                            print(f"  - {l}", flush=True)
-                        for l in new.splitlines():
-                            print(f"  + {l}", flush=True)
+                        for line in old.splitlines():
+                            print(f"  - {line}", flush=True)
+                        for line in new.splitlines():
+                            print(f"  + {line}", flush=True)
                     elif name == "Write":
                         print(f"\n📝 Write {inp.get('file_path', '')}", flush=True)
                     elif name == "Glob":
                         print(f"\n🔍 Glob {inp.get('pattern', '')}", flush=True)
                     elif name == "Grep":
-                        print(f"\n🔍 Grep '{inp.get('pattern', '')}' in {inp.get('path', '.')}", flush=True)
+                        print(
+                            f"\n🔍 Grep '{inp.get('pattern', '')}' in {inp.get('path', '.')}",
+                            flush=True,
+                        )
                     else:
                         print(f"\n🔧 {name} {json.dumps(inp)[:300]}", flush=True)
 
@@ -57,9 +60,7 @@ def main():
                 if block.get("type") == "tool_result":
                     content = block.get("content", "")
                     if isinstance(content, list):
-                        content = "\n".join(
-                            b.get("text", str(b)) for b in content
-                        )
+                        content = "\n".join(b.get("text", str(b)) for b in content)
                     content = str(content)
 
                     # Compact file reads
@@ -74,14 +75,14 @@ def main():
                     elif len(content) > 1000:
                         print(f"  → {content[:1000]}\n  ... (truncated)", flush=True)
                     elif content:
-                        for l in content.splitlines():
-                            print(f"  {l}", flush=True)
+                        for line in content.splitlines():
+                            print(f"  {line}", flush=True)
 
         elif t == "result":
             # Final result
             text = msg.get("result", "")
             if text:
-                print(f"\n{'='*60}", flush=True)
+                print(f"\n{'=' * 60}", flush=True)
                 print(f"✅ {text}", flush=True)
 
 

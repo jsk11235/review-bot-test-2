@@ -81,11 +81,23 @@ def wait_for_ci():
     time.sleep(10)
     elapsed = 0
     while elapsed < CI_TIMEOUT:
-        result = run([
-            "gh", "run", "list", "--repo", REPO, "--branch", PR_HEAD_REF,
-            "--workflow", CI_WORKFLOW, "--limit", "1",
-            "--json", "databaseId,status,conclusion",
-        ])
+        result = run(
+            [
+                "gh",
+                "run",
+                "list",
+                "--repo",
+                REPO,
+                "--branch",
+                PR_HEAD_REF,
+                "--workflow",
+                CI_WORKFLOW,
+                "--limit",
+                "1",
+                "--json",
+                "databaseId,status,conclusion",
+            ]
+        )
         if result.returncode == 0 and result.stdout.strip():
             runs = json.loads(result.stdout)
             if runs:
@@ -111,7 +123,8 @@ def wait_for_ci():
 def all_comments_addressed():
     comments = gh_api("GET", f"/repos/{REPO}/pulls/{PR_NUMBER}/comments") or []
     top_level = [
-        c for c in comments
+        c
+        for c in comments
         if not c.get("in_reply_to_id")
         and not c["user"]["login"].endswith("[bot]")
         and c["user"]["login"] != "github-actions"
@@ -128,9 +141,14 @@ def all_comments_addressed():
 
 
 def rerequest_review():
-    print(f"All comments addressed and CI passed. Re-requesting review from @{COMMENT_USER}")
-    gh_api("POST", f"/repos/{REPO}/pulls/{PR_NUMBER}/requested_reviewers",
-           {"reviewers": [COMMENT_USER]})
+    print(
+        f"All comments addressed and CI passed. Re-requesting review from @{COMMENT_USER}"
+    )
+    gh_api(
+        "POST",
+        f"/repos/{REPO}/pulls/{PR_NUMBER}/requested_reviewers",
+        {"reviewers": [COMMENT_USER]},
+    )
 
 
 def main():
