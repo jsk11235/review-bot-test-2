@@ -6,14 +6,7 @@ def reverse(s):
 
 
 def capitalize_words(s):
-    result = ""
-    words = s.split(" ")
-    for i in range(len(words)):
-        word = words[i]
-        result = result + word[0].upper() + word[1:]
-        if i < len(words) - 1:
-            result = result + " "
-    return result
+    return s.title()
 
 
 def count_vowels(s):
